@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
-import dbConnect from "@/lib/dbConnect";
-import Form from "@/models/Form";
+import dbConnect from "@/database/dbConnect";
+import Form from "@/database/models/Form";
 
 export default async function handler(
   req: NextApiRequest,

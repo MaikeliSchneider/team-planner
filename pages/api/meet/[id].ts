@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
-import dbConnect from "@/lib/dbConnect";
-import Meet from "@/models/Meet";
+import dbConnect from "@/database/dbConnect";
+import Meet from "@/database/models/Meet";
 
 export default async function handler(
   req: NextApiRequest,

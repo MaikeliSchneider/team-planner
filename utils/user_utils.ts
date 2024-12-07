@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import mongoose from "mongoose";
 
 import { Company } from "@/types";
 
@@ -22,8 +23,9 @@ export async function generateUserCreatePayload(
   const passwordHash = await bcrypt.hash(user.password, 10);
 
   return {
+    _id: new mongoose.Types.ObjectId(),
     ...user,
-    passwordHash,
+    password: passwordHash,
     companies,
   };
 }

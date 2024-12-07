@@ -1,14 +1,14 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
-import User from "@/models/User";
-import dbConnect from "@/lib/dbConnect";
+import User from "@/database/models/User";
+import dbConnect from "@/database/dbConnect";
 import {
   assembleUserObject,
   generateRefreshToken,
   generateToken,
   generateUserCreatePayload,
 } from "@/utils/user_utils";
-import Company from "@/models/Company";
+import Company from "@/database/models/Company";
 
 export default async function handler(
   req: NextApiRequest,
@@ -19,9 +19,17 @@ export default async function handler(
   await dbConnect();
 
   switch (method) {
-    case "GET":
+    case "PATCH":
       try {
-        const users = await User.find();
+        const { userId } = JSON.parse(req.body);
+
+        const user = await User.findById(userId);
+
+        if (!user) return res.status(400).json({ success: false });
+
+        const users = await User.find({
+          "companies.companyId": { $in: user.companies[0].companyId },
+        });
 
         res.status(200).json({ success: true, users });
       } catch (error: any) {

@@ -1,5 +1,5 @@
 import { title, subtitle } from "@/components/primitives";
-import DefaultLayout from "@/layouts/default";
+import DefaultLayout from "@/components/default";
 
 export default function IndexPage() {
   return (

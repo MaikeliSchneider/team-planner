@@ -1,11 +1,10 @@
+"use session";
 import {
   Navbar as NextUINavbar,
   NavbarContent,
-  NavbarMenu,
   NavbarMenuToggle,
   NavbarBrand,
   NavbarItem,
-  NavbarMenuItem,
 } from "@nextui-org/navbar";
 import { Button } from "@nextui-org/button";
 import { Kbd } from "@nextui-org/kbd";
@@ -15,15 +14,21 @@ import { link as linkStyles } from "@nextui-org/theme";
 import NextLink from "next/link";
 import clsx from "clsx";
 import { LogOut, UserCircle } from "lucide-react";
+import { getSession, signOut } from "next-auth/react";
 
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { GithubIcon, SearchIcon, Logo } from "@/components/icons";
-import { useAuth } from "@/context/auth_context";
 
-export const Navbar = () => {
-  const { user } = useAuth();
+type NavBarProps = {
+  user: {
+    name: string;
+    email: string;
+    id: string;
+  };
+};
 
+export const Navbar = ({ user }: NavBarProps) => {
   const searchInput = (
     <Input
       aria-label="Search"
@@ -84,7 +89,7 @@ export const Navbar = () => {
           </Link>
           <ThemeSwitch />
         </NavbarItem>
-        <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>
+        {/* <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem> */}
         <NavbarItem className="hidden md:flex">
           {!user ? (
             <Button
@@ -98,11 +103,12 @@ export const Navbar = () => {
             </Button>
           ) : (
             <Button
-              as={Link}
-              className="text-sm font-normal text-default-600 bg-default-100"
-              href="/login"
+              // as={Link}
               startContent={<LogOut className="text-primary" />}
               variant="flat"
+              className="text-sm font-normal text-default-600 bg-default-100"
+              // href="/login"
+              onClick={() => signOut({ callbackUrl: "/" })}
             >
               Logout
             </Button>
@@ -118,7 +124,7 @@ export const Navbar = () => {
         <NavbarMenuToggle />
       </NavbarContent>
 
-      <NavbarMenu>
+      {/* <NavbarMenu>
         {searchInput}
         <div className="mx-4 mt-2 flex flex-col gap-2">
           {siteConfig.navItems.map((item, index) => (
@@ -129,7 +135,22 @@ export const Navbar = () => {
             </NavbarMenuItem>
           ))}
         </div>
-      </NavbarMenu>
+      </NavbarMenu> */}
     </NextUINavbar>
   );
 };
+
+export async function getServerSideProps(context: any) {
+  console.log("NAVABER");
+  const session = await getSession(context);
+
+  // const userIsAdmin = session.user.companies.find(
+  //   (company) => company.isAdmin === true,
+  // );
+
+  return {
+    props: {
+      user: session.user,
+    },
+  };
+}

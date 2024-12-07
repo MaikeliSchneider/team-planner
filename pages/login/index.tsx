@@ -11,8 +11,9 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { signIn } from "next-auth/react";
 
-import DefaultLayout from "@/layouts/default";
+import DefaultLayout from "@/components/default";
 
 export default function DocsPage() {
   const [selected, setSelected] = useState<React.Key>("login");
@@ -22,11 +23,16 @@ export default function DocsPage() {
   const onSubmit = async (data: any) => {
     if (selected === "login") {
       try {
-        const reponse = await axios.post("/api/auth", data);
+        const res = await signIn("credentials", {
+          redirect: false,
+          email: data.email,
+          password: data.password,
+        });
 
-        localStorage.setItem("accessToken", reponse.data.accessToken);
-        localStorage.setItem("refreshToken", reponse.data.refreshToken);
-        router.push("/");
+        console.log("🚀 ~ res => ", res);
+        if (res?.ok) {
+          router.push("/dash");
+        }
       } catch (error) {
         console.log("🚀 ~ error => ", error);
       }
@@ -41,8 +47,6 @@ export default function DocsPage() {
         });
 
         if (response.data.success) {
-          localStorage.setItem("accessToken", response.data.accessToken);
-          localStorage.setItem("refreshToken", response.data.refreshToken);
           router.push("/");
         }
       } catch (error) {

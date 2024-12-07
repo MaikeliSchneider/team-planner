@@ -1,4 +1,5 @@
 import {
+  Pagination,
   Table,
   TableBody,
   TableCell,
@@ -7,15 +8,55 @@ import {
   TableRow,
 } from "@nextui-org/react";
 
-type TableCOmponentProps = {
-  rows: Array<any>;
-  columns: Array<any>;
+type PaginationProps = {
+  page: number;
+  pages: number;
+  setPage: (page: number) => void;
 };
 
-export default function TableComponent({ columns, rows }: TableCOmponentProps) {
+type TableComponentProps = {
+  rows: Array<any>;
+  columns: Array<any>;
+  pagination?: PaginationProps;
+};
+
+const paginatedComponent = ({ page, pages, setPage }: PaginationProps) => (
+  <div className="flex w-full justify-center">
+    <Pagination
+      isCompact
+      showControls
+      showShadow
+      color="secondary"
+      page={page}
+      total={pages}
+      onChange={(page) => setPage(page)}
+    />
+  </div>
+);
+
+export default function TableComponent({
+  columns,
+  rows,
+  pagination,
+}: TableComponentProps) {
   return (
-    <div>
-      <Table aria-label="Example table with dynamic content">
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100vh",
+      }}
+    >
+      <Table
+        fullWidth
+        aria-label="Example table with dynamic content"
+        bottomContent={pagination ? paginatedComponent(pagination) : null}
+        classNames={{
+          wrapper: "max-h-[522px]",
+          table: "max-h-[522px]",
+          tr: "h-[50px]",
+        }}
+      >
         <TableHeader>
           {columns.map((column) => (
             <TableColumn key={column.key}>{column.label}</TableColumn>

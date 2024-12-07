@@ -2,10 +2,10 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import { faker } from "@faker-js/faker";
 
-import UserModel from "../models/User.ts";
-import MeetModel from "../models/Meet.ts";
-import FormModel from "../models/Form.ts";
-import CompanyModel from "../models/Company.ts";
+import UserModel from "../database/models/User.ts";
+import MeetModel from "../database/models/Meet.ts";
+import FormModel from "../database/models/Form.ts";
+import CompanyModel from "../database/models/Company.ts";
 
 dotenv.config();
 

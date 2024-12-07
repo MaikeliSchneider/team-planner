@@ -1,6 +1,7 @@
-import { title } from "@/components/primitives";
+import { getSession } from "next-auth/react";
+
+import DefaultLayout from "@/components/default";
 import TableComponent from "@/components/table";
-import DefaultLayout from "@/layouts/default";
 
 const rows = [
   {
@@ -29,25 +30,64 @@ const columns = [
   { key: "phone", label: "Phone" },
 ];
 
-const user = {
-  name: "John Doe",
+type DashPageProps = {
+  user: {
+    name: string;
+    email: string;
+    id: string;
+  };
 };
 
-export default function DocsPage() {
-  console.log(title());
-
+export default function DashPage({ user }: DashPageProps) {
   return (
-    <DefaultLayout>
+    <DefaultLayout user={user}>
       <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
-        <div className="inline-block max-w-lg text-center justify-center">
-          <h1
-            className={
-              "tracking-tight inline-block font-semibold text-[2.3rem] lg:text-5xl leading-9"
-            }
-          >{`Seja bem vindo ${user.name}`}</h1>
+        <img alt="Logo" className="w-132" src="/planner.png" />
+        <div className="text-center">
+          <h1 className="text-[3rem] lg:text-5xl font-semibold tracking-tight">
+            Seja bem vindo <span className="uppercase">{user.name}</span>
+          </h1>
         </div>
-        <TableComponent columns={columns} rows={rows} />
+        <div className="flex flex-col lg:flex-row gap-8 w-full max-w-5xl">
+          {/* Left Panel - Reuniões */}
+          <div className="flex-1 p-6 rounded-lg shadow-md">
+            <h2 className="text-center text-lg font-medium mb-4">
+              3 Reuniões marcadas
+            </h2>
+            <div className="overflow-hidden rounded-md">
+              <TableComponent columns={columns} rows={rows} />
+            </div>
+          </div>
+          {/* Right Panel - Formulários */}
+          <div className="flex-1 p-6 rounded-lg shadow-md">
+            <h2 className="text-center text-lg font-medium mb-4">
+              2 Formulários pendentes
+            </h2>
+            <div className="overflow-hidden rounded-md">
+              <TableComponent columns={columns} rows={rows} />
+            </div>
+          </div>
+        </div>
       </section>
     </DefaultLayout>
   );
+}
+
+export async function getServerSideProps(context: any) {
+  const session = await getSession(context);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/auth/signin",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      user: session.user,
+    },
+  };
 }
