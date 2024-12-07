@@ -1,4 +1,5 @@
 
+
 # Projeto Team-Planner
 
   
@@ -14,13 +15,13 @@ Siga as instruções abaixo para configurar e executar o projeto em seu ambiente
 ## Estrutura de pastas
 
 -  **.vscode** - Pasta gerada automaticamente, sua função é apontar a pasta do ts.
--  **components** - Pagina destinada ao armazenamento de pure components do Next, componentes que não precisam das funções do server no Next.
+-  **components** - Página destinada ao armazenamento de Pure Components do Next, componentes que não precisam das funções do server no Next.
 -  **config** - Pasta destinada para armazenar a fonte e algumas informações do site.
 - **database** - Responsável por toda conexão ao banco de dados, e armazenar models (ou schemas de um banco relacional). A conexão com o banco e a autenticação é feita pela url do servidor mongo, seja usado através do atlas ou pela instância docker presente no projeto.
-- **pages** - Local onde é armazenado todas as rotas do projeto, tanto da api responsável pelas operações de crud e autenticação de usuário. Além disso armazena as interfaces do site.
-- **public** - Pasta gerada  pelo projeto NextUI
-- **style** - Configuração do tailwind
-- **types** - Tipos do projeto
+- **pages** - Local onde é armazenado as rotas do projeto, tanto da api responsável pelas operações de CRUD e autenticação de usuário quanto as interfaces do site.
+- **public** - Pasta gerada  pelo projeto NextUI.
+- **style** - Configuração do tailwind.
+- **types** - Tipos do projeto.
  - **utils** - Armazenar funções uteis para o projeto.
 
 ## Prototipação de telas
@@ -29,11 +30,14 @@ Siga as instruções abaixo para configurar e executar o projeto em seu ambiente
 
 ## Resumo
 
-### Oque foi feito
-Interfaces de listagem, cadastro e login criadas, integração com o banco de dados, autenticação de usuário.
+### Passos realizados
+Interfaces de listagem, cadastro e login criados, integração com o banco de dados, autenticação de usuário.
 
 ### Próximos passos
 Implementar interface de visualização de reunião e realizar melhorias na experiência de usuário.
+
+### Estrutura do projeto
+Para visualizar mais detalhes sobre a elaboração do projeto acesse a documentação no arquivo pdf `Projeto Integrador.pdf `
 
 # Instruções para funcionamento do projeto
 
@@ -167,4 +171,5 @@ Se você gostaria de contribuir para este projeto, sinta-se à vontade para abri
 
   
 
-Esperamos que essas instruções sejam úteis para você iniciar e executar o Team-Planner. Se tiver alguma em contato conosco.
+Esperamos que essas instruções sejam úteis para você iniciar e executar o Team-Planner.
+
