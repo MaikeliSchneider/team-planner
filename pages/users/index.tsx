@@ -1,7 +1,5 @@
 "use server";
-import { getSession } from "next-auth/react";
-import { Button } from "@nextui-org/button";
-import { Plus } from "lucide-react";
+
 import {
   Modal,
   ModalBody,
@@ -12,10 +10,13 @@ import {
   RadioGroup,
   useDisclosure,
 } from "@nextui-org/react";
+import { Button } from "@nextui-org/button";
+import { Plus } from "lucide-react";
+import { getSession } from "next-auth/react";
 import { useState } from "react";
 
-import DefaultLayout from "@/components/default";
 import TableComponent from "@/components/table";
+import DefaultLayout from "@/components/default";
 
 const columns = [
   { key: "name", label: "Nome" },
@@ -89,7 +90,7 @@ export default function UserPage({ user, users, companyId }: UserPageProps) {
                   value={permission}
                   onChange={changePermission}
                 >
-                  <Radio value="true">Administador</Radio>
+                  <Radio value="true">Administrador</Radio>
                   <Radio value="false">Membro</Radio>
                 </RadioGroup>
               </ModalBody>

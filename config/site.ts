@@ -2,22 +2,14 @@ export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
   name: "Team Planner",
-  description: "Make beautiful websites regardless of your design experience.",
+  description: "Gerencie as reuniões do seu time.",
   navItems: [
     {
       label: "Home",
       href: "/",
     },
     {
-      label: "Docs",
-      href: "/docs",
-    },
-    {
-      label: "Pricing",
-      href: "/pricing",
-    },
-    {
-      label: "About",
+      label: "Sobre",
       href: "/about",
     },
   ],
